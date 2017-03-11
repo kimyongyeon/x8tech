@@ -2,8 +2,12 @@
 
 const Hapi = require('hapi');
 
+console.log(`port = ${process.env.PORT}`);
+
+var process_port = process.eng.PORT || 8080;
+
 const server = new Hapi.Server();
-server.connection({ port: 8080, host: '172.31.13.194' });
+server.connection({ port: process_port, host: '172.31.13.194' });
 
 server.register(require('inert'), (err) => {
 
