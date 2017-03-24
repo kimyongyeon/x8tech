@@ -36,7 +36,7 @@ server.register(require('inert'), (err) => {
         path: '/img/{filename}',
         handler: {
             file: function (request) {
-                return request.params.filename;
+                return '/img/' + request.params.filename;
             }
         }
     });
