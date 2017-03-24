@@ -35,6 +35,10 @@ server.register(require('inert'), (err) => {
         method: 'GET',
         path: '/img/{filename}',
         handler: {
+            directory: {
+                path: 'public',
+                listing: true
+            },
             file: function (request) {
                 return '/img/' + request.params.filename;
             }
