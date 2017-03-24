@@ -8,12 +8,25 @@ var process_port = process.env.PORT || 8080;
 
 const server = new Hapi.Server();
 server.connection({ port: process_port, host: '172.31.13.194' });
+//server.connection({ port: process_port, host: 'localhost' });
 
 server.register(require('inert'), (err) => {
 
     if (err) {
         throw err;
     }
+    
+    server.route({
+        method: 'GET',
+        path: '/{param*}',
+        handler: {
+            directory: {
+                path: '.',
+                redirectToSlash: true,
+                index: true
+            }
+        }
+    });
 
     server.route({
         method: 'GET',
@@ -22,28 +35,24 @@ server.register(require('inert'), (err) => {
             reply.file('./public/index.html');
         }
     });
-
-	server.route({
-		method: 'GET',
-		path: '/hello/1',
-		handler: function (request, reply) {
-			reply('Hello, world!');
-		}
-	});
-    
-    server.route({
-        method: 'GET',
-        path: '/img/{filename}',
-        handler: {
-            directory: {
-                path: 'public',
-                listing: true
-            },
-            file: function (request) {
-                return '/img/' + request.params.filename;
-            }
-        }
-    });
+//
+//	server.route({
+//		method: 'GET',
+//		path: '/hello/1',
+//		handler: function (request, reply) {
+//			reply('Hello, world!');
+//		}
+//	});
+//    
+//    server.route({
+//        method: 'GET',
+//        path: '/img/{filename}',
+//        handler: {
+//            file: function (request) {
+//                return '/img/' + request.params.filename;
+//            }
+//        }
+//    });
 
 //	server.route({
 //		method: 'GET',
