@@ -30,6 +30,16 @@ server.register(require('inert'), (err) => {
 			reply('Hello, world!');
 		}
 	});
+    
+    server.route({
+        method: 'GET',
+        path: '/img/{filename}',
+        handler: {
+            file: function (request) {
+                return request.params.filename;
+            }
+        }
+    });
 
 //	server.route({
 //		method: 'GET',
